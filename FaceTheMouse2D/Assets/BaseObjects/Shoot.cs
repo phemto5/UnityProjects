@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Shoot : MonoBehaviour {
 
-	public Rigidbody2D prefabBullet;
+	public GameObject prefabBullet;
 	public float shootForce;
 	public Transform shootposition;
 	//public GameObject instanceBullet;
@@ -13,10 +13,8 @@ public class Shoot : MonoBehaviour {
 	{
 		if(Input.GetKey("z"))
 	   	{
-			var instanceBullet = Instantiate (prefabBullet, transform.position, shootposition.rotation) as Rigidbody2D;
-			instanceBullet.AddForce(shootposition.right * shootForce);
-
-
+			var instanceBullet = Instantiate (prefabBullet, transform.position, shootposition.rotation) as GameObject;
+			instanceBullet.rigidbody2D.AddForce(shootposition.right * shootForce);
 		}
 	}
 }
