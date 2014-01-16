@@ -1,0 +1,80 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class DynamicObjects : MonoBehaviour {
+	public Vector3 MousePos;
+	public Vector3 WorldTarget;
+	public Vector3 EulerAngles;
+	public GameObject crosshair;
+	public float ArcTanRads;
+	public float ArcTanDegs;
+	public float AngleDelta;
+	public float AngleChangeto;
+	public float AngleFrom;
+	public bool AngleNotMatch;
+	public float Step;
+	public float TempAngle;
+
+	// Use this for initialization
+	void Start () {
+		crosshair = GameObject.Find ("Croshair");
+
+	}
+
+	void Update () {
+		}
+	// Update is called once per frame
+	void FixedUpdate () {
+		Rotate ();
+		Thrust ();
+	}
+	//points the ship towards the mouse Marker
+	void Rotate(){
+		//Find Vectors
+		AngleFrom = transform.eulerAngles.z;
+		MousePos.Set(Input.mousePosition.x, Input.mousePosition.y, 0.0f);
+		WorldTarget = crosshair.transform.position;
+		//Cals the Angle for rotaion
+		ArcTanRads = Mathf.Atan2 ( WorldTarget.y - transform.position.y , WorldTarget.x - transform.position.x );
+		ArcTanDegs = Mathf.Rad2Deg * ArcTanRads;
+		if (ArcTanDegs < 0) {
+				ArcTanDegs += 360;
+		}
+		// Imediate Rotation
+		/*
+		 	//Set Euler Angle set
+			EulerAngles.Set (0, 0, ArcTanDegs);
+			transform.eulerAngles = EulerAngles; 
+		*/
+		//reletive movement
+		AngleDelta = ArcTanDegs - AngleFrom;
+		if (AngleDelta > 180) {
+			AngleChangeto = 360 - AngleDelta;
+		} 
+		else if (AngleDelta < -180) {
+			AngleChangeto = 360 + AngleDelta;
+		}
+		else {
+			AngleChangeto = AngleDelta;
+		}
+		//Stepped change in Angle
+		Step = 1;
+		if (AngleDelta < 0) {
+			Step *= -1;
+		}
+		if (AngleChangeto != AngleFrom) {
+			AngleNotMatch = true;
+		}
+		else {
+			AngleNotMatch = false;
+		}
+		TempAngle = AngleFrom + Step;
+		//Set Angle to Transform
+		if (AngleNotMatch){
+			EulerAngles = new Vector3(0, 0, TempAngle);
+			transform.eulerAngles = EulerAngles;
+		}
+	}
+	void Thrust(){
+	}
+}
