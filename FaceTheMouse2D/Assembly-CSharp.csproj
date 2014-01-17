@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\BaseObjects\DynamicObjects.cs" />
      <Compile Include="Assets\BaseObjects\FollowMouse.cs" />
+     <Compile Include="Assets\BaseObjects\HardPoints.cs" />
      <Compile Include="Assets\BaseObjects\Shoot.cs" />
      <Compile Include="Assets\BaseObjects\Shot.cs" />
      <Compile Include="Assets\BaseObjects\StaticObjects.cs" />
