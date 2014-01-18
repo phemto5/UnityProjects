@@ -48,6 +48,10 @@
   <ItemGroup>
      <Compile Include="Assets\BaseObjects\DynamicObjects.cs" />
      <Compile Include="Assets\BaseObjects\FollowMouse.cs" />
+<<<<<<< .merge_file_a02272
+=======
+     <Compile Include="Assets\BaseObjects\HardPoints.cs" />
+>>>>>>> .merge_file_a06388
      <Compile Include="Assets\BaseObjects\Shoot.cs" />
      <Compile Include="Assets\BaseObjects\Shot.cs" />
      <Compile Include="Assets\BaseObjects\StaticObjects.cs" />
