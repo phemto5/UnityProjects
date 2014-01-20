@@ -112,7 +112,6 @@ public class DynamicObjects : MonoBehaviour {
 		Force.Normalize ();
 		Velocity.Set (rigidbody2D.velocity.x, rigidbody2D.velocity.y);
 
-<<<<<<< HEAD
 		if (Distance>0.5f){
 
 			AngleVelocity = Mathf.Sqrt( Mathf.Pow( rigidbody2D.velocity.x,2)+Mathf.Pow( rigidbody2D.velocity.y,2));
@@ -132,7 +131,6 @@ public class DynamicObjects : MonoBehaviour {
 			Debug.Log(AngleVelocity);*/
 		}
 		AngleVelocityPrevious = AngleVelocity;
-=======
 		/*if (Distance > 0.5f) {
 
 						AngleVelocity = Mathf.Sqrt (Mathf.Pow (rigidbody2D.velocity.x, 2) + Mathf.Pow (rigidbody2D.velocity.y, 2));
@@ -171,6 +169,5 @@ public class DynamicObjects : MonoBehaviour {
 						Force.y = rigidbody2D.velocity.y/2;
 						rigidbody2D.AddForce (Force * (-1f));
 				}
->>>>>>> fc3fe99d07f02f536b32fba1eacb735ea92080b0
 	}
 }
