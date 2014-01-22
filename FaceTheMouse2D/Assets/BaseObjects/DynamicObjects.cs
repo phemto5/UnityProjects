@@ -116,48 +116,6 @@ public class DynamicObjects : MonoBehaviour {
 		Force.Normalize ();
 		Velocity.Set (rigidbody2D.velocity.x, rigidbody2D.velocity.y);
 
-		/*if (Distance>0.5f){
-
-			AngleVelocity = Mathf.Sqrt( Mathf.Pow( rigidbody2D.velocity.x,2)+Mathf.Pow( rigidbody2D.velocity.y,2));
-			ETA = Distance/AngleVelocity;
-			DistanceTravel = AngleVelocity-((AngleVelocity-AngleVelocityPrevious)* ETA);
-			if(DistanceTravel > Distance){
-				going = true;
-			}
-			else {
-				going = false;
-			}
-			if(going){
-				Force*=-1;
-			}
-			rigidbody2D.AddForce (Force);
-			//Debug.Log(AngleVelocityPrevious);
-			//Debug.Log(AngleVelocity);
-		}
-		AngleVelocityPrevious = AngleVelocity; */
-		/*if (Distance > 0.5f) {
-
-						AngleVelocity = Mathf.Sqrt (Mathf.Pow (rigidbody2D.velocity.x, 2) + Mathf.Pow (rigidbody2D.velocity.y, 2));
-						ETA = Distance / AngleVelocity;
-						DistanceTravel = AngleVelocity - ((AngleVelocity - AngleVelocityPrevious) * ETA);
-						if (DistanceTravel > Distance) {
-								going = true;
-						} else {
-								going = false;
-						}
-						if (going) {
-								Force *= -1;
-						}
-						rigidbody2D.AddForce (Force);
-						//Debug.Log(AngleVelocityPrevious);
-			//Debug.Log(AngleVelocity);
-				} 
-		else 
-		{
-
-		}*/
-
-		// Another mothod of decisions on how to stop a body in motion.
 		ETA = Distance/AngleVelocity;
 		AngleVelocity = Mathf.Sqrt (Mathf.Pow (rigidbody2D.velocity.x, 2) + Mathf.Pow (rigidbody2D.velocity.y, 2));
 		Acceleration = AngleVelocity - AngleVelocityPrevious;
