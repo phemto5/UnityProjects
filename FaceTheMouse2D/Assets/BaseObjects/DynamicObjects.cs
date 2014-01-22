@@ -121,9 +121,9 @@ public class DynamicObjects : MonoBehaviour {
 		Acceleration = AngleVelocity - AngleVelocityPrevious;
 		DistanceTravel = ((AngleVelocity*ETA) + (Acceleration* Mathf.Pow (ETA,2)));
 
-		bool Arrived = (Distance < .1);
+		bool Arrived = (Distance < 1f);
 		bool Stopped = (AngleVelocity == 0);
-		bool Accelerate = (Distance > DistanceTravel );
+		bool Accelerate = (Distance *0.40f > AngleVelocity );
 
 
 		status ="Arrived:"+ Arrived + " Accel:"+ Accelerate + "Stopped:" +Stopped;
