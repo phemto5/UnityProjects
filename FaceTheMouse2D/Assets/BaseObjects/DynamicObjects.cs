@@ -4,12 +4,14 @@ using System.Collections;
 public class DynamicObjects : MonoBehaviour {
 	//genral Object variables
 	public string status;
+	public GameObject prefabTraget;
 
 	//Vector3 MousePos;
 	//Rotate
 	Vector3 WorldTarget;
 	Vector3 EulerAngles;
 	GameObject crosshair;
+	GameObject ForceTarget;
 	float ArcTanRads;
 	float ArcTanDegs;
 	public float AngleDelta;
@@ -37,6 +39,7 @@ public class DynamicObjects : MonoBehaviour {
 	void Start () {
 		crosshair = GameObject.Find ("Croshair");
 		//basestep = 10;
+		//ForceTarget = Instantiate (prefabTraget, new Vector3 (Force.x, Force.y, 0), transform.rotation) as GameObject;
 
 	}
 
@@ -112,7 +115,8 @@ public class DynamicObjects : MonoBehaviour {
 		Distance = Mathf.Abs (Vector2.Distance (PosTarget, PosCurrent));
 
 		//Force.Set(Mathf.Cos(transform.eulerAngles.z),Mathf.Sin(transform.eulerAngles.z));
-		Force = PosTarget - PosCurrent;
+		Force = (PosTarget - PosCurrent) - rigidbody2D.velocity;
+		Debug.DrawLine (PosCurrent, Force );
 		Force.Normalize ();
 		Velocity.Set (rigidbody2D.velocity.x, rigidbody2D.velocity.y);
 
@@ -126,7 +130,7 @@ public class DynamicObjects : MonoBehaviour {
 		bool Accelerate = (Distance *0.40f > AngleVelocity );
 
 
-		status ="Arrived:"+ Arrived + " Accel:"+ Accelerate + "Stopped:" +Stopped;
+		//status ="Arrived:"+ Arrived + " Accel:"+ Accelerate + "Stopped:" +Stopped;
 
 
 		if (!Arrived) {
