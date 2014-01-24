@@ -4,12 +4,14 @@ using System.Collections;
 public class DynamicObjects : MonoBehaviour {
 	//genral Object variables
 	public string status;
+	public GameObject prefabTraget;
 
 	//Vector3 MousePos;
 	//Rotate
 	Vector3 WorldTarget;
 	Vector3 EulerAngles;
 	GameObject crosshair;
+	GameObject ForceTarget;
 	float ArcTanRads;
 	float ArcTanDegs;
 	public float AngleDelta;
@@ -37,6 +39,7 @@ public class DynamicObjects : MonoBehaviour {
 	void Start () {
 		crosshair = GameObject.Find ("Croshair");
 		//basestep = 10;
+		//ForceTarget = Instantiate (prefabTraget, new Vector3 (Force.x, Force.y, 0), transform.rotation) as GameObject;
 
 	}
 
@@ -107,65 +110,39 @@ public class DynamicObjects : MonoBehaviour {
 		}
 	}
 	void Thrust(){
+
+		//Fighter Movement
 		PosCurrent.Set (transform.position.x,transform.position.y);
 		PosTarget.Set (crosshair.transform.position.x, crosshair.transform.position.y);
+		Force = PosTarget - PosCurrent - rigidbody2D.velocity;
+
 		Distance = Mathf.Abs (Vector2.Distance (PosTarget, PosCurrent));
+		if (Distance > 0.5f) {
+						rigidbody2D.AddForce (Force);
+				} else {
+						rigidbody2D.AddForce (Force * 0.5f);
+				}
+
+		// Old not so working way of doing things.
+		/*
+
 
 		//Force.Set(Mathf.Cos(transform.eulerAngles.z),Mathf.Sin(transform.eulerAngles.z));
-		Force = PosTarget - PosCurrent;
-		Force.Normalize ();
+		Force = (PosTarget - PosCurrent) - rigidbody2D.velocity;
+		Debug.DrawLine (PosCurrent, PosCurrent+Force, Color.red );
+		//Force.Normalize ();
+		Debug.DrawLine (PosCurrent, PosCurrent+Force, Color.blue );
 		Velocity.Set (rigidbody2D.velocity.x, rigidbody2D.velocity.y);
+		Debug.DrawLine(PosCurrent, PosCurrent+rigidbody2D.velocity, Color.green );
 
-		/*if (Distance>0.5f){
-
-			AngleVelocity = Mathf.Sqrt( Mathf.Pow( rigidbody2D.velocity.x,2)+Mathf.Pow( rigidbody2D.velocity.y,2));
-			ETA = Distance/AngleVelocity;
-			DistanceTravel = AngleVelocity-((AngleVelocity-AngleVelocityPrevious)* ETA);
-			if(DistanceTravel > Distance){
-				going = true;
-			}
-			else {
-				going = false;
-			}
-			if(going){
-				Force*=-1;
-			}
-			rigidbody2D.AddForce (Force);
-			//Debug.Log(AngleVelocityPrevious);
-			//Debug.Log(AngleVelocity);
-		}
-		AngleVelocityPrevious = AngleVelocity; */
-		/*if (Distance > 0.5f) {
-
-						AngleVelocity = Mathf.Sqrt (Mathf.Pow (rigidbody2D.velocity.x, 2) + Mathf.Pow (rigidbody2D.velocity.y, 2));
-						ETA = Distance / AngleVelocity;
-						DistanceTravel = AngleVelocity - ((AngleVelocity - AngleVelocityPrevious) * ETA);
-						if (DistanceTravel > Distance) {
-								going = true;
-						} else {
-								going = false;
-						}
-						if (going) {
-								Force *= -1;
-						}
-						rigidbody2D.AddForce (Force);
-						//Debug.Log(AngleVelocityPrevious);
-			//Debug.Log(AngleVelocity);
-				} 
-		else 
-		{
-
-		}*/
-
-		// Another mothod of decisions on how to stop a body in motion.
 		ETA = Distance/AngleVelocity;
 		AngleVelocity = Mathf.Sqrt (Mathf.Pow (rigidbody2D.velocity.x, 2) + Mathf.Pow (rigidbody2D.velocity.y, 2));
 		Acceleration = AngleVelocity - AngleVelocityPrevious;
 		DistanceTravel = ((AngleVelocity*ETA) + (Acceleration* Mathf.Pow (ETA,2)));
 
-		bool Arrived = (Distance < .1);
+		bool Arrived = (Distance < 1f);
 		bool Stopped = (AngleVelocity == 0);
-		bool Accelerate = (Distance > DistanceTravel );
+		bool Accelerate = (Distance *0.40f > AngleVelocity );
 
 
 		status ="Arrived:"+ Arrived + " Accel:"+ Accelerate + "Stopped:" +Stopped;
@@ -187,6 +164,6 @@ public class DynamicObjects : MonoBehaviour {
 				Force.y = rigidbody2D.velocity.y;
 				rigidbody2D.AddForce (Force * (-1f));
 		}
-		AngleVelocityPrevious = AngleVelocity;
+		AngleVelocityPrevious = AngleVelocity;*/
 	}
 }
